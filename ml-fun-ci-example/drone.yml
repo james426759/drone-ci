@@ -4,7 +4,12 @@ type: kubernetes
 name: default
 
 steps:
-- name: test-build-push-mlfun
+- name: test
+  image: python3.7
+  commands:
+  - echo "12345"
+
+- name: build-push-mlfun
   image: docker:stable-dind
   privileged: true
   volumes:
