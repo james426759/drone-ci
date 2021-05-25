@@ -19,6 +19,9 @@ spec:
       containers:
       - name: runner
         image: drone/drone-runner-kube:latest
+        volumeMounts:
+        - name: dockersock
+          mountPath: "/var/run/docker.sock"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
@@ -36,6 +39,10 @@ spec:
             secretKeyRef:
               name: drone-server-secret
               key: DRONE_RPC_SECRET
+      volumes:
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock        
 ---
 apiVersion: v1
 kind: ServiceAccount
